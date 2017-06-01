@@ -1,0 +1,19 @@
+{
+  "name": "roboshakespeare",
+  "version": "1.0.0",
+  "description": "a project to create a simple Shakespearian speech generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Montana-Code-School/roboshakespeare.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Montana-Code-School/roboshakespeare/issues"
+  },
+  "homepage": "https://github.com/Montana-Code-School/roboshakespeare#readme"
+}
