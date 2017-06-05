@@ -1,3 +1,13 @@
+/* purpose: produce and array from 1 to 100 with any number
+          divisible by 3 replaced by "fizz", any number
+          divisible by 5 replaced by "buzz", any number
+          disible by both 3 and 5 replaced by "fizzbuzz"
+   parameters: n: n is the range of the array
+   produce: return the replace string or the number
+   preconditions: none
+   postconditions: none
+
+*/
 const newRange =(n) =>{
   const myArr = [...Array(n+1).keys()]
   const arr = myArr.slice(1);
