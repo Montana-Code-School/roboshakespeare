@@ -30,21 +30,26 @@ const processFile = (err, data) => {
 // produce: number to compare
 // preconditions: needs an object with number values
 // postconditions: N/A
-  Object.keys(wordFrequency)
-  		.sort((a, b) => wordFrequency[a]-wordFrequency[b])
-  		.forEach(word => {
-  			if(word.length <= 7){
-  				console.log(word+"\t\t\t"+wordFrequency[word])
-  			} else if (word.length > 7 && word.length < 16){
-  				console.log(word+"\t\t"+wordFrequency[word])
-  			} else {
-  				console.log(word+"\t"+wordFrequency[word])
-  			}
-  		})
-console.log("total number of words: ", Object.keys(wordFrequency).reduce((word,next) => word+wordFrequency[next],0))
+  // //Object.keys(wordFrequency)
+  // 		.sort((a, b) => wordFrequency[a]-wordFrequency[b])
+  // 		.forEach(word => {
+  // 			if(word.length <= 7){
+  // 				console.log(word+"\t\t\t"+wordFrequency[word])
+  // 			} else if (word.length > 7 && word.length < 16){
+  // 				console.log(word+"\t\t"+wordFrequency[word])
+  // 			} else {
+  // 				console.log(word+"\t"+wordFrequency[word])
+  // 			}
+  // 		})
+  // //console.log("total number of words: ", Object.keys(wordFrequency).reduce((word,next) => word+wordFrequency[next],0))
+  console.log(randomWord(wordFrequency))
+  //console.log(listRandomWords(wordFrequency, 100).join(" "))
+  console.log(listWeightedWords(wordFrequency, 100).join(" "))
 }
 
-fs.readFile( __dirname + '/austen\.txt', processFile);
+
+
+fs.readFile( __dirname + '/austen.txt', processFile);
 
 console.log('Has the file been read yet')
 // purpose: replacing everything other than letters with an empty string
@@ -117,3 +122,68 @@ const findWords = (str) => {
 			  .map(fiendCleaner)
 			  .reduce(countWords, {})
 }
+//Purpose: To generate a random word from an object with words as keys, and values are numbers
+//Parameters: An object 
+//Produces: A random word of type String
+//Preconditions: None
+//Postconditions: None
+const randomWord = (obj) => {
+  const words = Object.keys(obj) // create an array of words
+  const objLength = words.length // get the length of the array (words)
+  const randNum = Math.floor(Math.random() * objLength) // create a random number between 0 and objLength
+  const select = words[randNum] // select a random word
+  return select 
+}
+//Purpose: Take a number (n) and generate a list of (n) random words in a array
+//Parameters: Object (where the keys are words and the values are numbers), and a number
+//Produce: A new array of random words
+//Preconditions: None. But it does use randomWord and wordFrequency
+//Postconditions: None.
+const listRandomWords = (obj, n) =>{
+  const wordz = [...Array(n).keys()] // create an array of length n
+  const list = wordz.map(()=>randomWord(obj))
+  return list;
+}
+
+
+
+// purpose: To get a number between one and the number of words. 
+// Parameter: A frequency object that has words as keys and counts as values
+// produces: A number between 1 and the total number of words
+// Preconditions: none
+// Postconditions: none 
+const randomNumber = (freqObj) => {
+  const wordsInObj = Object.keys(freqObj)
+  const num = wordsInObj.reduce((total,word) => total + freqObj[word],0)
+  const rand = Math.ceil(Math.random() * num)
+  return rand
+}
+
+const listWeightedWords = (obj, n) => {
+  const words = [...Array(n).keys()]
+  const list = words.map(()=>getWeightedWord(obj, randomNumber(obj)))
+  return list;
+}
+
+const getWeightedWord =(obj, randomNumber)=> {
+  const getWord = (total,next) => {
+    const freq = obj[next];
+    const isString = typeof total === "string";
+    const newTotal = freq >= total ? next : total - freq ;
+    return isString ? total : newTotal
+
+  }
+  const keys=Object.keys(obj);
+  return keys.reduce(getWord, randomNumber);
+}
+
+
+
+
+
+
+
+
+
+
+
