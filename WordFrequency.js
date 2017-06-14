@@ -22,9 +22,9 @@ class WordFrequency {
 
 	_fiendCleaner(str){
 		return str.replace(/[^A-Za-z']+/g,"")
-		          .replace(/^'/, "") //the carrot means strip any apostrophe that is
-                              //at the end of a word
-             	  .replace(/'$/,""); //strip any apostrophe that is at the beginning
+		          .replace(/^'/, "") //the caret means strip any apostrophe that is
+                              //at the beginning of a word
+             	  .replace(/'$/,""); //strip any apostrophe that is at the end
                               // of a word
             					//.replace(/[a-z]'+/g,"");
 	}
